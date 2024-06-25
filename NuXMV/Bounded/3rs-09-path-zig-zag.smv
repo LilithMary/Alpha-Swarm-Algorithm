@@ -1,0 +1,257 @@
+-- 3 robots, 4 by 4 grid, both place swapping and place overlap are avoided
+-- full avoidance implemented (all 4 directions + stay)
+
+-- 1 2
+-- 2 1 3
+-- 3 2 
+
+-- 0 0 0 0 0 
+-- 0 0 0 0 0 
+-- 0 0 0 0 0 
+-- 0 2 0 0 0 
+-- 1 0 3 0 0 
+
+MODULE main
+
+
+VAR
+r1: robot(lenmax, range, 0, 0, r2, r3);
+r2: robot(lenmax, range, 1, 1, r1, r3);
+r3: robot(lenmax, range, 2, 0, r1, r2);
+
+DEFINE
+range := 1; -- this means the robot can detect other robots within one square of its location (i.e. 8 squares around it)
+lenmax := 9; -- this is the length of each side of the grid
+
+
+connected12 := r1.connected1; -- true iff robot 1 can detect robot 2 (equal to r2.connected1) 
+connected13 := r1.connected2; -- true iff robot 1 can detect robot 3 (equal to r3.connected1)
+connected23 := r2.connected2; -- true iff robot 2 can detect robot 3 (equal to r3.connected2)
+
+-- true iff the swarm is connected 
+connectedSwarm := ((connected12 & connected13) | -- path 2 1 3
+              	   (connected12 & connected23) | -- path 1 2 3
+                  (connected13 & connected23)); -- path 1 3 2
+              
+
+-- always eventually the swarm becomes connected (counterexample: a path with a loop in which at least one robot remains disconnected)
+LTLSPEC G (F connectedSwarm);
+
+-- this module takes the current x and y location, the grid length, and the robot's move and calculates the robot's cooridnates after implementing the move. Assumption: the grid is wrap-around (i.e. no edges) so mod is used to return the robot to the opposite edge (e.g. moving west from location with x = 0 and y = 2 will result in x = lenmax and y = 2).
+MODULE intended(xloc, yloc, lenmax, move)
+DEFINE
+	x:= 
+               case
+		    -- EAST
+                    (move = dueEast): ((xloc + 1) mod lenmax);
+		    -- WEST
+                    (move = dueWest): ((xloc + lenmax - 1) mod lenmax);
+                    TRUE: xloc;
+            	esac;
+            	
+        y:=       	
+               case
+		    -- NORTH
+                    (move = dueNorth): ((yloc + 1) mod lenmax);
+		    -- SOUTH
+                    (move = dueSouth): ((yloc + lenmax - 1) mod lenmax);
+                    TRUE: yloc;
+            	esac;     
+        
+-- module robot takes the grid length, detection range, initial x and y, and the other two robots as arguments
+MODULE robot(lenmax, range, initx, inity, other1, other2)
+    DEFINE
+	maxind:= lenmax - 1;
+
+	-- collision avoidance calculations:
+	
+	intendedMove1 := 
+		case
+		-- EAST
+			next(direction = e): dueEast;
+		-- WEST	
+			next(direction = w): dueWest;
+		-- NORTH
+                	next(direction = n): dueNorth;
+		-- SOUTH
+                	next(direction = s): dueSouth;
+                	TRUE: stay;			
+		esac;
+		
+		
+	placeOverlap1 := ((intended1.x = other1.intended1.x) & (intended1.y = other1.intended1.y)) |
+			((intended1.x = other2.intended1.x) & (intended1.y = other2.intended1.y));
+
+	placeSwapping1 := (xloc = other1.intended1.x & yloc = other1.intended1.y & 
+			  intended1.x = other1.xloc & intended1.y = other1.yloc) |
+ 			 (xloc = other2.intended1.x & yloc = other2.intended1.y & 
+			  intended1.x = other2.xloc & intended1.y = other2.yloc); 
+
+
+	clash1 := placeOverlap1 | placeSwapping1;
+
+
+	intendedMove2 := 
+		case
+			!clash1: intendedMove1;
+		-- EAST
+			next(direction = e): {dueNorth, dueSouth};
+		-- WEST	
+			next(direction = w): {dueNorth, dueSouth};
+		-- NORTH
+                	next(direction = n): {dueEast, dueWest};
+		-- SOUTH
+                	next(direction = s): {dueEast, dueWest};
+
+                	TRUE: stay;			
+		esac;
+		
+	placeOverlap2 := ((intended2.x = other1.intended2.x) & (intended2.y = other1.intended2.y)) |
+			((intended2.x = other2.intended2.x) & (intended2.y = other2.intended2.y));
+
+	placeSwapping2 := (xloc = other1.intended2.x & yloc = other1.intended2.y & 
+			  intended2.x = other1.xloc & intended2.y = other1.yloc) |
+ 			 (xloc = other2.intended2.x & yloc = other2.intended2.y & 
+			  intended2.x = other2.xloc & intended2.y = other2.yloc); 
+
+
+	clash2 := placeOverlap2 | placeSwapping2;
+
+
+	intendedMove3 := 
+		case
+			!clash1 & !clash2: intendedMove1;
+			!clash2: next(intendedMove2_var);
+			next(intendedMove2_var) = dueEast: dueWest;
+			next(intendedMove2_var) = dueWest: dueEast;
+			next(intendedMove2_var) = dueNorth: dueSouth;
+			next(intendedMove2_var) = dueSouth: dueNorth;
+			TRUE: stay;			
+		esac;
+
+	placeOverlap3 := ((intended3.x = other1.intended3.x) & (intended3.y = other1.intended3.y)) |
+			  ((intended3.x = other2.intended3.x) & (intended3.y = other2.intended3.y));
+
+	placeSwapping3 := (xloc = other1.intended3.x & yloc = other1.intended3.y & 
+			  intended3.x = other1.xloc & intended3.y = other1.yloc) |
+ 			 (xloc = other2.intended3.x & yloc = other2.intended3.y & 
+			  intended3.x = other2.xloc & intended3.y = other2.yloc); 
+
+	clash3 := placeOverlap3 | placeSwapping3;
+
+
+	intendedMove4 := 
+		case
+			!clash1 & !clash2 & !clash3: intendedMove1;
+			!clash2 & !clash3: next(intendedMove2_var);
+			!clash3: intendedMove3;
+		-- EAST
+			next(direction = e): dueWest;
+		-- WEST	
+			next(direction = w): dueEast;
+		-- NORTH
+                	next(direction = n): dueSouth;
+		-- SOUTH
+                	next(direction = s): dueNorth;
+
+                	TRUE: stay;			
+		esac;
+
+	placeOverlap4 := ((intended4.x = other1.intended4.x) & (intended4.y = other1.intended4.y)) |
+			  ((intended4.x = other2.intended4.x) & (intended4.y = other2.intended4.y));
+
+	placeSwapping4 := (xloc = other1.intended4.x & yloc = other1.intended4.y & 
+			  intended4.x = other1.xloc & intended4.y = other1.yloc) |
+ 			 (xloc = other2.intended4.x & yloc = other2.intended4.y & 
+			  intended4.x = other2.xloc & intended4.y = other2.yloc); 
+
+	clash4 := placeOverlap4 | placeSwapping4;
+
+	clash5 := (other1.clash4 & (intended4.x = other1.xloc & intended4.y = other1.yloc)) | 
+		  (other2.clash4 & (intended4.x = other2.xloc & intended4.y = other2.yloc));
+
+	move := 
+		case
+			!clash1 & !clash2 & !clash3 & !clash4 & !clash5: intendedMove1;
+			!clash2 & !clash3 & !clash4 & !clash5: next(intendedMove2_var);
+			!clash3 & !clash4 & !clash5: intendedMove3;
+			!clash4 & !clash5: intendedMove4;
+                	TRUE: stay;		
+	esac;
+
+
+	-- connectivity calculations:
+	
+	-- check if robot is connected to other1  
+	absx1:= abs(xloc - other1.xloc);
+	absy1:= abs(yloc - other1.yloc);
+
+	connected1 := ((absx1 <= range) | ((lenmax - absx1) <= range)) & -- x distance is within range
+             	     ((absy1 <= range) | ((lenmax - absy1) <= range));  -- y distance is within range
+
+	-- check if robot is connected to other2
+	absx2:= abs(xloc - other2.xloc);
+	absy2:= abs(yloc - other2.yloc);
+
+	connected2 := ((absx2 <= range) | ((lenmax - absx2) <= range)) & -- x distance is within range
+             	     ((absy2 <= range) | ((lenmax - absy2) <= range));  -- y distance is within range	
+
+
+	-- check if robot is connected to either other1 or other2
+	connected := connected1 | connected2;
+
+	-- if robot is connected, motion is forward (keep exploring)
+	-- else, motion is coherence (seeking to reconnect)
+	motion:=
+                case
+                    (connected = TRUE): forward;
+                    TRUE: coherence;
+                esac;
+      
+    -- Variables          	
+    VAR
+        xloc: 0 .. maxind;  -- upper bound must be 1 less than lenmax
+        yloc: 0 .. maxind;  -- upper bound must be 1 less than lenmax
+	direction : {e, w, n, s}; -- east, west, north, south
+	intendedMove2_var: {dueNorth, dueSouth, dueEast, dueWest, stay}; -- intended moves include stay in case collision cannot be avoided
+        prev_motion: {forward, coherence}; 
+        intended1: intended(xloc, yloc, lenmax, intendedMove1); -- first level of collision avoidance
+        intended2: intended(xloc, yloc, lenmax, next(intendedMove2_var)); -- second level of collision avoidance
+        intended3: intended(xloc, yloc, lenmax, intendedMove3); -- third level of collision avoidance
+        intended4: intended(xloc, yloc, lenmax, intendedMove4); -- forth level of collision avoidance
+        loc: intended(xloc, yloc, lenmax, move); -- the actual move of the robot
+        
+        
+    -- Assignments
+    ASSIGN
+
+	-- choosing nondeterministically 
+	next(intendedMove2_var) := intendedMove2;
+
+	-- just shadowing 'motion' (remembering its latest value)
+	init(prev_motion) := motion;
+	next(prev_motion) := motion;
+
+	-- if switching from forward motion to coherence motion, choose the opposite direction
+	-- if switching from coherence motion to forward motion, choose nondeterministically between 90 degrees rotation left or right
+	-- keep direction the same by default
+        next(direction):=
+                case
+                    (direction = n) & (prev_motion = forward) & (motion = coherence): s;
+                    (direction = s) & (prev_motion = forward) & (motion = coherence): n;
+                    (direction = e) & (prev_motion = forward) & (motion = coherence): w;
+                    (direction = w) & (prev_motion = forward) & (motion = coherence): e;
+                    (direction = n | direction = s) & (prev_motion = coherence) & (motion = forward): {e, w};
+                    (direction = e | direction = w) & (prev_motion = coherence) & (motion = forward): {n, s};
+                    TRUE: direction; 
+                esac;
+                
+                
+        
+        init(xloc):= initx;
+        next(xloc):= loc.x;
+
+
+        init(yloc):= inity;
+        next(yloc):= loc.y;
+
