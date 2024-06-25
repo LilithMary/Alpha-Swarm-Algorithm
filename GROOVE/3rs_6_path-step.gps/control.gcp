@@ -1,0 +1,101 @@
+
+selectDirection;
+
+alap{
+alap{detectsOneEast;}
+alap{detectsOneWest;}
+alap{detectsOneNorth;}
+alap{detectsOneSouth;}
+alap{detectsOneNorthEast;}
+alap{detectsOneNorthWest;}
+alap{detectsOneSouthEast;}
+alap{detectsOneSouthWest;}
+
+alap{switchToForward;}
+alap{switchToCoherence;}
+
+alap{intendToMoveEast;}
+alap{intendToMoveWest;}
+alap{intendToMoveNorth;}
+alap{intendToMoveSouth;}
+
+alap{detectPlaceOverlap;}
+alap{detectPlaceSwap;}
+
+
+if(clashExists){
+alap{avoidClash-NorthToEast | avoidClash-NorthToWest;}
+alap{avoidClash-SouthToEast | avoidClash-SouthToWest;}
+alap{avoidClash-EastToNorth | avoidClash-EastToSouth;}
+alap{avoidClash-WestToNorth | avoidClash-WestToSouth;}
+
+alap{detectPlaceOverlap;}
+alap{detectPlaceSwap;}
+
+if(clashExists){
+alap{avoidClash-EastToNorthToSouth;}
+alap{avoidClash-EastToSouthToNorth;}
+alap{avoidClash-WestToNorthToSouth;}
+alap{avoidClash-WestToSouthToNorth;}
+alap{avoidClash-NorthToEastToWest;}
+alap{avoidClash-NorthToWestToEast;}
+alap{avoidClash-SouthToEastToWest;}
+alap{avoidClash-SouthToWestToEast;}
+alap{avoidClash-NorthToEast | avoidClash-NorthToWest;}
+alap{avoidClash-SouthToEast | avoidClash-SouthToWest;}
+alap{avoidClash-EastToNorth | avoidClash-EastToSouth;}
+alap{avoidClash-WestToNorth | avoidClash-WestToSouth;}
+
+alap{detectPlaceOverlap;}
+alap{detectPlaceSwap;}
+
+if(clashExists){
+alap{avoidClash-EastToWest;}
+alap{avoidClash-WestToEast;}
+alap{avoidClash-NorthToSouth;}
+alap{avoidClash-SouthToNorth;}
+alap{avoidClash-EastToNorthToSouth;}
+alap{avoidClash-EastToSouthToNorth;}
+alap{avoidClash-WestToNorthToSouth;}
+alap{avoidClash-WestToSouthToNorth;}
+alap{avoidClash-NorthToEastToWest;}
+alap{avoidClash-NorthToWestToEast;}
+alap{avoidClash-SouthToEastToWest;}
+alap{avoidClash-SouthToWestToEast;}
+alap{avoidClash-NorthToEast | avoidClash-NorthToWest;}
+alap{avoidClash-SouthToEast | avoidClash-SouthToWest;}
+alap{avoidClash-EastToNorth | avoidClash-EastToSouth;}
+alap{avoidClash-WestToNorth | avoidClash-WestToSouth;}
+
+alap{detectPlaceOverlap;}
+alap{detectPlaceSwap;}
+
+if(clashExists){
+alap{avoidClash-stay;}
+alap{avoidClash-EastToWest;}
+alap{avoidClash-WestToEast;}
+alap{avoidClash-NorthToSouth;}
+alap{avoidClash-SouthToNorth;}
+alap{avoidClash-EastToNorthToSouth;}
+alap{avoidClash-EastToSouthToNorth;}
+alap{avoidClash-WestToNorthToSouth;}
+alap{avoidClash-WestToSouthToNorth;}
+alap{avoidClash-NorthToEastToWest;}
+alap{avoidClash-NorthToWestToEast;}
+alap{avoidClash-SouthToEastToWest;}
+alap{avoidClash-SouthToWestToEast;}
+alap{avoidClash-NorthToEast | avoidClash-NorthToWest;}
+alap{avoidClash-SouthToEast | avoidClash-SouthToWest;}
+alap{avoidClash-EastToNorth | avoidClash-EastToSouth;}
+alap{avoidClash-WestToNorth | avoidClash-WestToSouth;}
+}
+}
+}
+}
+
+move;
+alap{setPrevConnectedTrue;}
+alap{setPrevConnectedFalse;}
+clearSenses;
+
+}
