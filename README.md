@@ -2,8 +2,8 @@
 This repository provides implementations of a simplified Alpha swarm aggregation algorithm in NuXMV and GROOVE.
 
 ## Software
-**NuXMV**: Install [NuXMV] (https://nuxmv.fbk.eu/download.html)
-**GROOVE**: Install [GROOVE] (https://groove.cs.utwente.nl/installing.html)
+**NuXMV**: Install [NuXMV] (https://nuxmv.fbk.eu/download.html)\
+**GROOVE**: Install [GROOVE] (https://groove.cs.utwente.nl/installing.html)\
 
 ## Experiments
 For each of GROOVE and NuXMV, we have provided a sample code for grid length 4 with 3, 4, and 5 robots. Below are guidelines for running the code on Linux. 
