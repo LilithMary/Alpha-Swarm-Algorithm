@@ -62,7 +62,7 @@ connectedSwarm := ((connected12 & connected13 & connected14) | -- star with 1 in
 
 
 -- always eventually the swarm becomes connected (counterexample: a path with a loop in which at least one robot remains disconnected)
-LTLSPEC G (F connectedSwarm);
+CTLSPEC AG (AF connectedSwarm);
 
 
 -- this module takes the current x and y location, the grid length, and the robot's move and calculates the robot's cooridnates after implementing the move. Assumption: the grid is wrap-around (i.e. no edges) so mod is used to return the robot to the opposite edge (e.g. moving west from location with x = 0 and y = 2 will result in x = lenmax and y = 2).
