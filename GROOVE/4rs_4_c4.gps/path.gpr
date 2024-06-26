@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph role="rule" edgeids="false" edgemode="directed" id="path">
+        <attr name="$version">
+            <string>curly</string>
+        </attr>
+        <node id="n0">
+            <attr name="layout">
+                <string>257 86 44 17</string>
+            </attr>
+        </node>
+        <node id="n4">
+            <attr name="layout">
+                <string>100 218 44 17</string>
+            </attr>
+        </node>
+        <node id="n3">
+            <attr name="layout">
+                <string>379 394 44 17</string>
+            </attr>
+        </node>
+        <node id="n1">
+            <attr name="layout">
+                <string>490 150 44 17</string>
+            </attr>
+        </node>
+        <edge from="n0" to="n3">
+            <attr name="label">
+                <string>:senses</string>
+            </attr>
+        </edge>
+        <edge from="n0" to="n1">
+            <attr name="label">
+                <string>!=</string>
+            </attr>
+        </edge>
+        <edge from="n0" to="n4">
+            <attr name="label">
+                <string>:senses</string>
+            </attr>
+        </edge>
+        <edge from="n0" to="n0">
+            <attr name="label">
+                <string>type:Robot</string>
+            </attr>
+        </edge>
+        <edge from="n4" to="n1">
+            <attr name="label">
+                <string>!=</string>
+            </attr>
+        </edge>
+        <edge from="n4" to="n4">
+            <attr name="label">
+                <string>type:Robot</string>
+            </attr>
+        </edge>
+        <edge from="n4" to="n3">
+            <attr name="label">
+                <string>!=</string>
+            </attr>
+        </edge>
+        <edge from="n3" to="n1">
+            <attr name="label">
+                <string>:senses</string>
+            </attr>
+        </edge>
+        <edge from="n3" to="n3">
+            <attr name="label">
+                <string>type:Robot</string>
+            </attr>
+        </edge>
+        <edge from="n1" to="n1">
+            <attr name="label">
+                <string>type:Robot</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>
