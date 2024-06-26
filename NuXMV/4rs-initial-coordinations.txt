@@ -1,0 +1,155 @@
+-- initial coordinations for 4 robot
+
+
+-- c4
+-- 0 0 0 0 
+-- 0 4 0 0 
+-- 1 0 3 0 
+-- 0 2 0 0 
+
+VAR
+r1: robot(lenmax, range, 0, 1, r2, r3, r4);
+r2: robot(lenmax, range, 1, 0, r1, r3, r4);
+r3: robot(lenmax, range, 2, 1, r1, r2, r4);
+r4: robot(lenmax, range, 1, 2, r1, r2, r3);
+
+---------------------------------------
+-- c4+diag
+
+-- 0 0 0 0 
+-- 0 4 0 0 
+-- 1 3 0 0 
+-- 0 2 0 0 
+
+VAR
+r1: robot(lenmax, range, 0, 1, r2, r3, r4);
+r2: robot(lenmax, range, 1, 0, r1, r3, r4);
+r3: robot(lenmax, range, 1, 1, r1, r2, r4);
+r4: robot(lenmax, range, 1, 2, r1, r2, r3);
+
+---------------------------------------
+-- k4-square
+
+-- 0 0 0 0 
+-- 0 0 0 0 
+-- 4 2 0 0
+-- 1 3 0 0
+
+VAR
+r1: robot(lenmax, range, 0, 0, r2, r3, r4);
+r2: robot(lenmax, range, 1, 1, r1, r3, r4);
+r3: robot(lenmax, range, 1, 0, r1, r2, r4);
+r4: robot(lenmax, range, 0, 1, r1, r2, r3);
+
+---------------------------------------
+-- path-diag
+
+-- 0 0 0 4
+-- 0 0 3 0 
+-- 0 2 0 0 
+-- 1 0 0 0 
+
+VAR
+r1: robot(lenmax, range, 0, 0, r2, r3, r4);
+r2: robot(lenmax, range, 1, 1, r1, r3, r4);
+r3: robot(lenmax, range, 2, 2, r1, r2, r4);
+r4: robot(lenmax, range, 3, 3, r1, r2, r3);
+
+---------------------------------------
+-- path-step
+
+-- 0 0 0 0
+-- 0 0 0 0 
+-- 0 0 3 4 
+-- 1 2 0 0 
+
+VAR
+r1: robot(lenmax, range, 0, 0, r2, r3, r4);
+r2: robot(lenmax, range, 1, 0, r1, r3, r4);
+r3: robot(lenmax, range, 2, 1, r1, r2, r4);
+r4: robot(lenmax, range, 3, 1, r1, r2, r3);
+
+---------------------------------------
+-- path-straight
+
+-- 0 0 0 0 
+-- 0 0 0 0 
+-- 0 0 0 0 
+-- 1 2 3 4 
+
+VAR
+r1: robot(lenmax, range, 0, 0, r2, r3, r4);
+r2: robot(lenmax, range, 1, 0, r1, r3, r4);
+r3: robot(lenmax, range, 2, 0, r1, r2, r4);
+r4: robot(lenmax, range, 3, 0, r1, r2, r3);
+
+---------------------------------------
+-- path-straight-zig-zag
+
+-- 0 0 0 0 
+-- 0 0 0 0  
+-- 0 0 3 0  
+-- 1 2 0 4  
+
+VAR
+r1: robot(lenmax, range, 0, 0, r2, r3, r4);
+r2: robot(lenmax, range, 1, 0, r1, r3, r4);
+r3: robot(lenmax, range, 2, 1, r1, r2, r4);
+r4: robot(lenmax, range, 3, 0, r1, r2, r3);
+
+---------------------------------------
+-- path-zig-zag
+
+-- 0 0 0 0  
+-- 0 0 0 0  
+-- 0 2 0 4  
+-- 1 0 3 0  
+
+VAR
+r1: robot(lenmax, range, 0, 0, r2, r3, r4);
+r2: robot(lenmax, range, 1, 1, r1, r3, r4);
+r3: robot(lenmax, range, 2, 0, r1, r2, r4);
+r4: robot(lenmax, range, 3, 1, r1, r2, r3);
+
+---------------------------------------
+-- star
+
+-- 0 0 0 0  
+-- 0 4 0 0  
+-- 0 2 0 0  
+-- 1 0 3 0  
+
+VAR
+r1: robot(lenmax, range, 0, 0, r2, r3, r4);
+r2: robot(lenmax, range, 1, 1, r1, r3, r4);
+r3: robot(lenmax, range, 2, 0, r1, r2, r4);
+r4: robot(lenmax, range, 1, 2, r1, r2, r3);
+
+---------------------------------------
+-- triangle-with-diag-tail
+
+-- 0 0 0 0 
+-- 0 0 4 0 
+-- 0 2 0 0 
+-- 1 3 0 0
+
+VAR
+r1: robot(lenmax, range, 0, 0, r2, r3, r4);
+r2: robot(lenmax, range, 1, 1, r1, r3, r4);
+r3: robot(lenmax, range, 1, 0, r1, r2, r4);
+r4: robot(lenmax, range, 2, 2, r1, r2, r3);
+
+---------------------------------------
+-- triangle-with-straight-tail
+
+-- 0 0 0 0 
+-- 0 4 0 0 
+-- 0 2 0 0  
+-- 1 3 0 0  
+
+VAR
+r1: robot(lenmax, range, 0, 0, r2, r3, r4);
+r2: robot(lenmax, range, 1, 1, r1, r3, r4);
+r3: robot(lenmax, range, 1, 0, r1, r2, r4);
+r4: robot(lenmax, range, 1, 2, r1, r2, r3);
+
