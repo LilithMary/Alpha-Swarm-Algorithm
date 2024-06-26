@@ -1,5 +1,10 @@
-# Alpha-Swarm-Algorithm
-This repository provides implementations of a simplified Alpha swarm aggregation algorithm in NuXMV and GROOVE.
+# Alpha Swarm Algorithm: Specification and Verification in NuXMV and GROOVE
+This repository provides implementations of a simplified Alpha swarm aggregation algorithm in NuXMV and GROOVE for unbounded and bounded model checking.
+
+## Alpha Algorithm
+The Alpha Algorithm (a.k.a connection degree algorithm) [1] aims to guarantee that a given network of robots, capable only of short-range wireless communications, any robot which gets disconnected from the swarm would eventually return to the swarm.
+
+[^1] Julien Nembrini. 2005. Minimalist Coherent Swarming of Wireless Networked Autonomous Mobile Robots. Ph.D. Dissertation. 
 
 ## Software
 **NuXMV**: Install [NuXMV] (https://nuxmv.fbk.eu/download.html)<br />
