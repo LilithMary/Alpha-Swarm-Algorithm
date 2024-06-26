@@ -9,6 +9,7 @@ This repository provides implementations of a simplified Alpha swarm aggregation
 For each of GROOVE and NuXMV, we have provided a sample code for grid length 4 with 3, 4, and 5 robots. Below are guidelines for running the code on Linux. 
 
 ### Run Sample Codes
+
 #### NuXMV
 ```
 cd <nuxmv-path>/bin/
@@ -17,11 +18,12 @@ cd <nuxmv-path>/bin/
 
 #### GROOVE
 1. Inside the gps folder, modify the ```system.properties``` file to set ```location=``` to the path of the gps folder in your system.
-2. Run the following commands:
+2. Run the following commands for 3 robots:
 ```
 cd <groove-path>/nl/utwente/groove
 (time -cp ../../../bin/Simulator.jar nl.utwente.groove.ModelChecker -ctl "AG(AF(connectedSwarm))" <path-to-groove-gps-folder> > <path-to-save-output>;) 2> <path-to-save-duration>
 ```
+For 4 and 5 robots, replace ```"AG(AF(connectedSwarm))"``` with ```"AG(AF(path | star))"``` and ```"AG(AF(path | star | vbranch))"``` respectively.
 
 ### Modify Sample Codes
 Below are guidelines for conducting bounded model checking and changing the initial locations of robots. 
