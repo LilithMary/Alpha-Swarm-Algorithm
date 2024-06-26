@@ -4,7 +4,21 @@ This repository provides implementations of a simplified Alpha swarm aggregation
 ## Alpha Algorithm
 The Alpha Algorithm (a.k.a connection degree algorithm) [1] aims to guarantee that a given network of robots, capable only of short-range wireless communications, any robot which gets disconnected from the swarm would eventually return to the swarm.
 
+Each robot in the swarm moves forward by default, periodically sending out "Are you there?" messages to detect nearby robots. If a robot finds that the number of its neighbours falls below a certain threshold ```alpha```, it assumes it is moving out of the swarm. Therefore executes a 180-degree turn and continues to move forward. Once it regains enough neighbours, it performs a random turn to prevent the swarm from collapsing in on itself and resumes exploring. This algorithm relies on local wireless connectivity information to achieve swarm aggregation and maintain cohesion​​.
+
+We have applied the following simplifications to the Alpha algorithm to improve scalability of verification:
+1. Wraparound grid instead of an infinite grid
+2. Synchronous movement
+3. Alpha parameter set to 1
+4. Detection range set to 1
+5. Avoidance range set to 1
+6. Cadence set to 1
+
+The NuXMV version of the code along with the wraparound grid and concurrency modelled as synchrony were based on [2].
+
 [1] Julien Nembrini. 2005. Minimalist Coherent Swarming of Wireless Networked Autonomous Mobile Robots. Ph.D. Dissertation. 
+
+[2] Clare Dixon, Alan FT Winfield, Michael Fisher, and Chengxiu Zeng. 2012. Towards temporal verification of swarm robotic systems. Robotics and Autonomous Systems 60, 11 (2012), 1429–1441.
 
 ## Software
 **NuXMV**: Install [NuXMV] (https://nuxmv.fbk.eu/download.html)<br />
