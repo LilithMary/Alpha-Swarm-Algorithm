@@ -16,6 +16,8 @@ cd <nuxmv-path>/bin/
 ```
 
 #### GROOVE
+1. Inside the gps folder, modify the ```system.properties``` file to set ```location=``` to the path of the gps folder in your system.
+2. Run the following commands:
 ```
 cd <groove-path>/nl/utwente/groove
 (time -cp ../../../bin/Simulator.jar nl.utwente.groove.ModelChecker -ctl "AG(AF(connectedSwarm))" <path-to-groove-gps-folder> > <path-to-save-output>;) 2> <path-to-save-duration>
@@ -26,11 +28,39 @@ Below are guidelines for conducting bounded model checking and changing the init
 
 #### Bounded Model Checking
 
-#### NuXMV
+##### NuXMV
 1. Inside the SMV file, change the CTLSPEC to LTLSTEP and modify the formula accordingly as shown below:
    Replace  ```CTLSPEC AG (AF connectedSwarm);``` with ```LTLSPEC G (F connectedSwarm);```.
-2.
+2. Run the following commands which sets the bound to 20 and disables generation of a counterexample via ```-dcx```:
+   ```
+   cd <nuxmv-path>/bin/
+   (time ./nuxmv -bmc -bmc_length 20 -dcx <path-to-smv-code> > <path-to-save-output>;) 2> <path-to-save-duration>
+   ```
 
-#### GROOVE
+##### GROOVE
+1. Inside the gps folder, modify the ```system.properties``` file to set ```location=``` to the path of the gps folder in your system.
+2. Run the following commands:
+```
+cd <groove-path>/bin/
+(time java jar Generator.jar -a cycle -r 1000 -s ltl: "AG(AF(connectedSwarm))" <path-to-gps-folder> > <path-to-save-output>;) 2> <path-to-save-duration>
+```
 
 #### Initial Robot Locations
+
+
+##### NuXMV
+1. From the initial coordinations file with the number of robots of your choosing, select an initial configuration for the robots. Copy the corresponding code starting with ```VAR``` and ending before a dashed line. Open the SMV sample code with the same number of robots and replace the section at the beginning of ```MODULE main``` starting with ```VAR``` and ending before ```DEFINE``` with the code you copied previously. Save the file.
+2. Run commands provided in previous sections. 
+
+
+##### GROOVE
+1. Select a start configuration from the provided initial configurations and copy it into the gps folder containing the sample codes. The number of robots must match, e.g. if the grammar in the gps folder has 3 robots, the start graph must be selected from those with 3 robots.
+2. Inside the gps folder, modify the ```system.properties``` file to:
+    1. Set ```location=``` to the path of the gps folder in your system.
+    2. Set ```startGraph=``` to the start graph file of your choosing (without the gst extension).
+3. Run commands provided in previous sections.
+
+
+
+
+
