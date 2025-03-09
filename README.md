@@ -64,11 +64,22 @@ Below are guidelines for conducting bounded model checking and changing the init
 
 ##### GROOVE
 1. Inside the gps folder, modify the ```system.properties``` file to set ```location=``` to the path of the gps folder in your system.
-2. Run the following commands:
+2. Navigate to the ```bin``` folder where the GROOVE jar files are:
 ```
 cd <groove-path>/bin/
-(time java -jar Generator.jar -a cycle -r 1000 -s ltl: "G(F(connectedSwarm))" <path-to-gps-folder> > <path-to-save-output>;) 2> <path-to-save-duration>
 ```
+3. Run the following command:
+```
+(time java -jar Generator.jar -a cycle -r 1000 -s ltl:"G(F(connectedSwarm))" <path-to-gps-folder> > <path-to-save-output>;) 2> <path-to-save-duration>
+```
+This will explore 1000 cycles of the simulation and provide a counterexample in the form of a sequence of state IDs. <br />
+
+The following variation of the command (with extra flags) provides detailed information about the states and transitions labeled with corresponding rules:
+
+```
+(time java -jar Generator.jar -a cycle -r 1000 -s ltl:"G(F(connectedSwarm))" **-f <path-to-save-states>/'state-#.gxl' -o <path-to-save-transitions>/'labeled_transitions.gxl'** <path-to-gps-folder> > <path-to-save-output>;) 2> <path-to-save-duration>
+```
+With this information, the counterexample can be decoded into a sequence of states with rule names marking transitioning from one state to the next. 
 
 #### Initial Robot Locations
 
