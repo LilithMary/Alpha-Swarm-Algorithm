@@ -40,7 +40,7 @@ cd <nuxmv-path>/bin/
 2. Run the following commands for 3 robots:
 ```
 cd <groove-path>/nl/utwente/groove
-(time -cp ../../../bin/Simulator.jar nl.utwente.groove.ModelChecker -ctl "AG(AF(connectedSwarm))" <path-to-groove-gps-folder> > <path-to-save-output>;) 2> <path-to-save-duration>
+(time java -cp ../../../bin/Simulator.jar nl.utwente.groove.ModelChecker -ctl "AG(AF(connectedSwarm))" <path-to-groove-gps-folder> > <path-to-save-output>;) 2> <path-to-save-duration>
 ```
 For 4 and 5 robots, replace ```"AG(AF(connectedSwarm))"``` with ```"AG(AF(path | star))"``` and ```"AG(AF(path | star | vbranch))"``` respectively.
 
@@ -63,7 +63,7 @@ Below are guidelines for conducting bounded model checking and changing the init
 2. Run the following commands:
 ```
 cd <groove-path>/bin/
-(time java jar Generator.jar -a cycle -r 1000 -s ltl: "AG(AF(connectedSwarm))" <path-to-gps-folder> > <path-to-save-output>;) 2> <path-to-save-duration>
+(time java -jar Generator.jar -a cycle -r 1000 -s ltl: "AG(AF(connectedSwarm))" <path-to-gps-folder> > <path-to-save-output>;) 2> <path-to-save-duration>
 ```
 
 #### Initial Robot Locations
