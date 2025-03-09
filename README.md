@@ -67,7 +67,7 @@ Below are guidelines for conducting bounded model checking and changing the init
 2. Run the following commands:
 ```
 cd <groove-path>/bin/
-(time java -jar Generator.jar -a cycle -r 1000 -s ltl: "AG(AF(connectedSwarm))" <path-to-gps-folder> > <path-to-save-output>;) 2> <path-to-save-duration>
+(time java -jar Generator.jar -a cycle -r 1000 -s ltl: "G(F(connectedSwarm))" <path-to-gps-folder> > <path-to-save-output>;) 2> <path-to-save-duration>
 ```
 
 #### Initial Robot Locations
