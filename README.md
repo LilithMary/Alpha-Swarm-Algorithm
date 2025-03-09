@@ -24,6 +24,10 @@ The NuXMV version of the code along with the wraparound grid and concurrency mod
 **NuXMV**: Install [NuXMV] (https://nuxmv.fbk.eu/download.html)<br />
 **GROOVE**: Install [GROOVE] (https://groove.cs.utwente.nl/installing.html)<br />
 
+To use the GROOVE ```ModelChecker``` (as instructed further below):
+1. Download the GROOVE source code from here: https://github.com/nl-utwente-groove/code/releases <br />
+2. Unzip it and copy the ```nl``` folder in the GROOVE path (in the same folder where ```bin``` and ```lib``` subfolders are).
+
 ## Experiments
 For each of GROOVE and NuXMV, we have provided a sample code for grid length 4 with 3, 4, and 5 robots. Below are guidelines for running the code on Linux. 
 
