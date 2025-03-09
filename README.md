@@ -79,7 +79,7 @@ The following variation of the command (with extra flags ```-f``` and ```-o```) 
 ```
 (time java -jar Generator.jar -a cycle -r 1000 -s ltl:"G(F(connectedSwarm))" -f <path-to-save-states>/'state-#.gxl' -o <path-to-save-transitions>/'labeled_transitions.gxl' <path-to-gps-folder> > <path-to-save-output>;) 2> <path-to-save-duration>
 ```
-With this information, the counterexample can be decoded into a sequence of states with rule names marking transitioning from one state to the next. 
+With this information, the counterexample can be decoded into a sequence of states with rule names marking transitions from one state to the next. 
 
 #### Initial Robot Locations
 
