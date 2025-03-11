@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
+    <graph role="rule" edgeids="false" edgemode="directed" id="connectedSwarmExperimental">
+        <attr name="$version">
+            <string>curly</string>
+        </attr>
+        <attr name="enabled">
+            <string>false</string>
+        </attr>
+        <node id="n1">
+            <attr name="layout">
+                <string>128 311 39 18</string>
+            </attr>
+        </node>
+        <node id="n2">
+            <attr name="layout">
+                <string>435 309 39 18</string>
+            </attr>
+        </node>
+        <node id="n5">
+            <attr name="layout">
+                <string>282 422 22 25</string>
+            </attr>
+        </node>
+        <node id="n6">
+            <attr name="layout">
+                <string>269 251 39 18</string>
+            </attr>
+        </node>
+        <node id="n7">
+            <attr name="layout">
+                <string>289 328 7 18</string>
+            </attr>
+        </node>
+        <edge from="n1" to="n5">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+        <edge from="n1" to="n6">
+            <attr name="label">
+                <string>:senses</string>
+            </attr>
+        </edge>
+        <edge from="n1" to="n1">
+            <attr name="label">
+                <string>type:Robot</string>
+            </attr>
+        </edge>
+        <edge from="n2" to="n2">
+            <attr name="label">
+                <string>type:Robot</string>
+            </attr>
+        </edge>
+        <edge from="n2" to="n5">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+        <edge from="n5" to="n5">
+            <attr name="label">
+                <string>forallx:</string>
+            </attr>
+        </edge>
+        <edge from="n6" to="n7">
+            <attr name="label">
+                <string>@</string>
+            </attr>
+        </edge>
+        <edge from="n6" to="n2">
+            <attr name="label">
+                <string>:senses</string>
+            </attr>
+        </edge>
+        <edge from="n6" to="n6">
+            <attr name="label">
+                <string>type:Robot</string>
+            </attr>
+        </edge>
+        <edge from="n7" to="n7">
+            <attr name="label">
+                <string>exists:</string>
+            </attr>
+        </edge>
+        <edge from="n7" to="n5">
+            <attr name="label">
+                <string>in</string>
+            </attr>
+        </edge>
+    </graph>
+</gxl>

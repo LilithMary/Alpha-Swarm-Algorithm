@@ -1,0 +1,93 @@
+
+function detectClash(){
+try detectPlaceOverlap;
+try detectPlaceSwap;
+}
+
+function clashAvoidanceStageOne(){
+alap{avoidClash-NorthToEast | avoidClash-NorthToWest;}
+alap{avoidClash-SouthToEast | avoidClash-SouthToWest;}
+alap{avoidClash-EastToNorth | avoidClash-EastToSouth;}
+alap{avoidClash-WestToNorth | avoidClash-WestToSouth;}
+}
+
+function clashAvoidanceStageTwo(){
+try avoidClash-EastToNorthToSouth;
+try avoidClash-EastToSouthToNorth;
+try avoidClash-WestToNorthToSouth;
+try avoidClash-WestToSouthToNorth;
+try avoidClash-NorthToEastToWest;
+try avoidClash-NorthToWestToEast;
+try avoidClash-SouthToEastToWest;
+try avoidClash-SouthToWestToEast;
+}
+
+function clashAvoidanceStageThree(){
+try avoidClash-EastToWest;
+try avoidClash-WestToEast;
+try avoidClash-NorthToSouth;
+try avoidClash-SouthToNorth;
+}
+
+function clashAvoidanceStageFour(){
+try avoidClash-stay;
+}
+
+
+// #############################
+// Main programme begins here
+
+
+
+selectDirection;
+
+alap{
+try detectsOneEast;
+try detectsOneNorth;
+try detectsOneNorthEast;
+try detectsOneNorthWest;
+
+try switchToForward;
+try switchToCoherence;
+
+try intendToMoveEast;
+try intendToMoveWest;
+try intendToMoveNorth;
+try intendToMoveSouth;
+
+detectClash();
+
+if(clashExists){
+clashAvoidanceStageOne();
+
+detectClash();
+
+if(clashExists){
+clashAvoidanceStageTwo();
+clashAvoidanceStageOne();
+
+detectClash();
+
+if(clashExists){
+clashAvoidanceStageThree();
+clashAvoidanceStageTwo();
+clashAvoidanceStageOne();
+
+detectClash();
+
+if(clashExists){
+clashAvoidanceStageFour();
+clashAvoidanceStageThree();
+clashAvoidanceStageTwo();
+clashAvoidanceStageOne();
+}
+}
+}
+}
+
+try move;
+try setPrevConnectedTrue;
+try setPrevConnectedFalse;
+try clearSenses;
+
+}
